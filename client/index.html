@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <form id="login">
+            <input id="username" type="text">
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+
+    <div class="wrapper">
+        <div id="message-container"></div>
+        <form id="message-form" action="" method="">
+            <textarea id="message-input" cols="2" rows="10"></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    
+    <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script defer src="main.js"></script>
+</body>
+</html>
