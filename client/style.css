@@ -1,0 +1,14 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.hidden{
+    display: none;
+}
+
+textarea {
+    resize: none;
+    width: 100%;
+}
