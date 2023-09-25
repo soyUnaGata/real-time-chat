@@ -39,3 +39,4 @@ function appendMessage(message){
     messageElement.innerText = message;
     messageContainer.append(messageElement);
 }
+
