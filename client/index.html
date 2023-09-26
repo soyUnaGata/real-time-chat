@@ -10,7 +10,7 @@
 </head>
 <body>
 
-   <div class="container d-flex justify-content-center align-items-center">
+   <div id="login-container" class="container justify-content-center align-items-center">
         <div class="login-wrapper w-100">
             <form id="login" class="d-flex flex-column align-items-center w-100">
                 <h2 class="hedline-login">Log In to Chat</h2>
@@ -21,9 +21,18 @@
    </div>
 
 
-   <div class="container">
-        <div class="wrapper">
-            <div id="message-container"></div>
+   <div id="chat-container" class="container hidden">
+        <div class="wrapper d-flex flex-column justify-content-between w-100">
+            <div id="message-container">
+                <!-- <div class="toast-container position-static"> -->
+                    <!-- <div class="toast" aria-live="assertive" aria-atomic="true">
+                      <div class="toast-header">
+                        <strong id="name" class="me-auto"></strong>
+                      </div>
+                      <div id="message-body" class="toast-body"></div>
+                </div> -->
+            </div>
+
             <form class="message-form__container d-flex  align-items-center w-100" id="message-form" action="" method="">
                 <textarea class="textarea-form" id="message-input" cols="2" rows="3"></textarea>
                 <button class="btn btn-outline-info btn-lg" type="submit">Send</button>

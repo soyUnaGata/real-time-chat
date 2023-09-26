@@ -16,8 +16,8 @@ io.on('connection', (socket) => {
     });
 
     socket.on('send-chat-message', (message) => {
-        socket.emit('chat-message', { message: message, username: users[socket.id] }) // i will see msg i send
-        socket.broadcast.emit('chat-message', { message: message, username: users[socket.id] }) // other people in chat will see msg
+        socket.emit('chat-message', { message: message, username: users[socket.id] }) 
+        socket.broadcast.emit('chat-message', { message: message, username: users[socket.id] }) 
     });
 
     socket.on('disconnect', () => {

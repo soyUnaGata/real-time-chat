@@ -9,16 +9,21 @@ body {
 }
 
 .hidden{
-    display: none;
+    display: none !important;
 }
 
 .container {
     margin: 0 auto;
     height: 100%;
+    display: flex;
 }
 
 #login {
     gap: 15px;
+}
+
+.wrapper {
+    margin: 15px 0;
 }
 
 #message-input {
@@ -58,4 +63,8 @@ body {
     border-color: #86b7fe;
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+}
+
+.toast:not(.show) {
+    display: block !important; 
 }
