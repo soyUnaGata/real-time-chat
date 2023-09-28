@@ -5,28 +5,33 @@ const messageInput = document.getElementById('message-input');
 const loginContainer = document.getElementById('login-container');
 const chatContainer = document.getElementById('chat-container');
 const loginFrom = document.getElementById('login');
-const username = document.getElementById('username');
+const usernameEl = document.getElementById('username');
+let username = '';
+const msgFromMeClass = 'message--from-me';
+const msgSystemClass = 'message--system';
 
 loginFrom.addEventListener('submit', e =>{
     e.preventDefault();  
-    const user = username.value;
-    socket.emit('new-user', user);
+    username =  usernameEl.value;
+
+    socket.emit('new-user', username);
     loginContainer.classList.add('hidden');
     chatContainer.classList.remove('hidden');
     socket.on('user-connected', user => {
         console.log(socket)
-        appendMessage(`${user} connected`);   
+        renderMessage('SYSTEM', `${user} connected`, msgSystemClass)
     });
 });
 
 
 socket.on('chat-message', data => {
-    appendMessage(data.username, data.message)
-    console.log(data);
+   const addingClass = username === data.username ? msgFromMeClass : '';
+   renderMessage(data.username, data.message, addingClass);
+  
 });
 
 socket.on('user-disconnected', username => {
-    appendMessage(`${username} disconnected`)
+    renderMessage('SYSTEM', `${username} disconnected`, msgSystemClass)
 });
 
 messageForm.addEventListener('submit', e =>{
@@ -37,34 +42,17 @@ messageForm.addEventListener('submit', e =>{
     messageInput.value = '';
 });
 
-function appendMessage(username,message){
-    const toastContainer = document.createElement('div');
-    toastContainer.classList.add('toast-container');
-    toastContainer.classList.add('position-static')
 
-    const toastElement = document.createElement('div');
-    toastElement.classList.add('toast');
-
-    const toastHeader = document.createElement('div');
-    toastHeader.classList.add('toast-header');
-
-    const strongElement = document.createElement('strong');
-    strongElement.classList.add('me-auto');
-    strongElement.innerText = username;
-
-    const toastBody = document.createElement('div');
-    toastBody.classList.add('toast-body');
-    toastBody.innerText = message;
-    if(toastBody.innerText == 'undefined'){
-        toastBody.style.display = 'none';
-    }
-  
-
-    toastHeader.appendChild(strongElement);
-    toastElement.appendChild(toastHeader);
-    toastElement.appendChild(toastBody);
-    toastContainer.appendChild(toastElement);
-
-    messageContainer.appendChild(toastContainer);
+function renderMessage(from, message, className){
+    messageContainer.innerHTML += `  
+    <li class="${className}">
+        <div class="message">
+            <span class="author" style="font-size: 70%;">${from}</span>
+            <span class="message-text">${message}</span>
+        </div>
+    </li>
+    `;
+    messageContainer.scrollTop = messageContainer.scrollHeight;
 }
+
 
