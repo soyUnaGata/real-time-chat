@@ -1,38 +1,26 @@
 const socket = io('http://localhost:5000');
-const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message-input');
 const loginContainer = document.getElementById('login-container');
 const chatContainer = document.getElementById('chat-container');
 const loginFrom = document.getElementById('login');
 const usernameEl = document.getElementById('username');
-let username = '';
-const msgFromMeClass = 'message--from-me';
-const msgSystemClass = 'message--system';
+let msgContainer = null; 
+
 
 loginFrom.addEventListener('submit', e =>{
     e.preventDefault();  
-    username =  usernameEl.value;
-
+    const username =  usernameEl.value;
+    msgContainer = new MessageContainer('#message-container', username);
     socket.emit('new-user', username);
     loginContainer.classList.add('hidden');
     chatContainer.classList.remove('hidden');
-    socket.on('user-connected', user => {
-        console.log(socket)
-        renderMessage('SYSTEM', `${user} connected`, msgSystemClass)
-    });
+    socket.on('user-connected', username => msgContainer.append(new SystemNotification(`${username} connected`)));
 });
 
 
-socket.on('chat-message', data => {
-   const addingClass = username === data.username ? msgFromMeClass : '';
-   renderMessage(data.username, data.message, addingClass);
-  
-});
-
-socket.on('user-disconnected', username => {
-    renderMessage('SYSTEM', `${username} disconnected`, msgSystemClass)
-});
+socket.on('chat-message', data => msgContainer.append(new Message(data.username, data.message)));
+socket.on('user-disconnected', username => msgContainer.append(new SystemNotification(`${username} disconnected`)));
 
 messageForm.addEventListener('submit', handleSubmit);
 messageInput.addEventListener('keydown', handleSubmit);
@@ -47,17 +35,5 @@ function handleSubmit(e) {
     }
 }
 
-
-function renderMessage(from, message, className){
-    messageContainer.innerHTML += `  
-    <li class="${className}">
-        <div class="message">
-            <span class="author" style="font-size: 70%;">${from}</span>
-            <span class="message-text">${message}</span>
-        </div>
-    </li>
-    `;
-    messageContainer.scrollTop = messageContainer.scrollHeight;
-}
 
 
