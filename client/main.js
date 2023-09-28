@@ -34,13 +34,18 @@ socket.on('user-disconnected', username => {
     renderMessage('SYSTEM', `${username} disconnected`, msgSystemClass)
 });
 
-messageForm.addEventListener('submit', e =>{
-    e.preventDefault();
-    const message = messageInput.value;
-    if(!message.trim()) return;
-    socket.emit('send-chat-message', message);
-    messageInput.value = '';
-});
+messageForm.addEventListener('submit', handleSubmit);
+messageInput.addEventListener('keydown', handleSubmit);
+
+function handleSubmit(e) {
+    if (e.key === 'Enter' || e.type === 'submit') {
+      e.preventDefault();
+      const message = messageInput.value;
+      if (!message.trim()) return;
+      socket.emit('send-chat-message', message);
+      messageInput.value = '';
+    }
+}
 
 
 function renderMessage(from, message, className){
