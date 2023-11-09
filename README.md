@@ -3,7 +3,7 @@
 Welcome to the documentation for the Real-time Chat App! This project is a simple chat application using Bootstrap for styling, Socket.io for real-time communication, and Vanilla JS for client-side functionality.
 
 ## Live Demo
-Check out the live demo of the Real-time Chat App: [Live Demo]((https://main--luminous-sopapillas-2886bb.netlify.app/))
+Check out the live demo of the Real-time Chat App: [Live Demo](https://main--luminous-sopapillas-2886bb.netlify.app/)
 
 ## Features
 - Simple login page allowing users to set their username.
