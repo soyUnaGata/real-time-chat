@@ -1,4 +1,4 @@
-const socket = io('http://localhost:5000');
+const socket = io('https://real-time-chat-server.onrender.com');
 const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message-input');
